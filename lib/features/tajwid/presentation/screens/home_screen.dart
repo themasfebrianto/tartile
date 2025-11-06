@@ -78,19 +78,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final colors = [
-      Colors.teal,
-      Colors.indigo,
-      Colors.deepOrange,
-      Colors.purple,
-      Colors.green,
-      Colors.cyan,
+      const Color(0xFFBBDEFB), // Light Blue 100
+      const Color(0xFFC8E6C9), // Green 100
+      const Color(0xFFFFF9C4), // Yellow 100
+      const Color(0xFFFFCCBC), // Deep Orange 100
+      const Color(0xFFD1C4E9), // Deep Purple 100
+      const Color(0xFFFFF3E0), // Orange 50
+      const Color(0xFFE1BEE7), // Purple 100
+      const Color(0xFFDCEDC8), // Lime 100
     ];
 
     return Scaffold(
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('Tartile Tajwid'),
-        backgroundColor: Colors.teal,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: colorScheme.surface,
+        surfaceTintColor: Colors.transparent,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu_rounded),
+            color: colorScheme.onSurface,
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        title: Text(
+          'Tartile Tajwid',
+          style: TextStyle(
+            color: colorScheme.onSurface,
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
       drawer: AppDrawer(
         categoryRepository: widget.categoryRepository,
@@ -98,11 +120,17 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: _loadCategories,
+        color: colorScheme.primary,
         child: _isLoading
-            ? const Center(child: CircularProgressIndicator())
+            ? Center(
+                child: CircularProgressIndicator(color: colorScheme.primary),
+              )
             : Column(
                 children: [
-                  SearchBarWidget(onChanged: _onSearchChanged),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    child: SearchBarWidget(onChanged: _onSearchChanged),
+                  ),
                   Expanded(
                     child: CategoryGridWidget(
                       categories: _filteredCategories,

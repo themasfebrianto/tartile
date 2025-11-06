@@ -19,7 +19,8 @@ class TajwidRuleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Decode examples JSON string ke Map
+    final colorScheme = Theme.of(context).colorScheme;
+
     Map<String, String> examplesMap = {};
     if (rule.examples.isNotEmpty) {
       final decoded = jsonDecode(rule.examples) as Map<String, dynamic>;
@@ -27,112 +28,137 @@ class TajwidRuleCard extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.7), color.withValues(alpha: 0.7)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 8,
-            offset: const Offset(2, 4),
-          ),
-        ],
+        color: color,
+        borderRadius: BorderRadius.circular(24),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
         child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          data: Theme.of(context).copyWith(
+            dividerColor: Colors.transparent,
+            splashColor: Colors.white.withValues(alpha: 0.1),
+            highlightColor: Colors.white.withValues(alpha: 0.05),
+          ),
           child: ExpansionTile(
             tilePadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
+              horizontal: 20,
+              vertical: 16,
             ),
-            subtitle: Text(
-              rule.letters,
-              style: const TextStyle(
-                fontFamily: 'NotoSansArabic',
-                color: Colors.white70,
-                fontSize: 16,
+            collapsedShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                rule.letters,
+                style: TextStyle(
+                  fontFamily: 'NotoSansArabic',
+                  color: colorScheme.onPrimaryContainer.withValues(alpha: 0.7),
+                  fontSize: 16,
+                  height: 1.4,
+                ),
               ),
             ),
             title: Text(
               rule.title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Poppins',
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
+                color: colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.w500,
+                fontSize: 17,
+                letterSpacing: 0.1,
               ),
             ),
-            childrenPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
+            childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             initiallyExpanded: isExpanded,
             onExpansionChanged: onExpansionChanged,
             children: [
+              const SizedBox(height: 8),
               MarkdownBody(
                 data: rule.explanation,
                 styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
                     .copyWith(
-                      p: const TextStyle(
+                      p: TextStyle(
                         fontFamily: 'Poppins',
-                        color: Colors.white70,
-                        fontSize: 16,
-                        height: 1.5,
+                        color: colorScheme.onPrimaryContainer.withValues(
+                          alpha: 0.8,
+                        ),
+                        fontSize: 15,
+                        height: 1.6,
+                        letterSpacing: 0.2,
                       ),
                     ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white12,
-                  borderRadius: BorderRadius.circular(12),
+                  color: colorScheme.onPrimaryContainer.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Contoh:',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 4,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: colorScheme.onPrimaryContainer.withValues(
+                              alpha: 0.4,
+                            ),
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Contoh',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: colorScheme.onPrimaryContainer,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: examplesMap.entries.map((entry) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          padding: const EdgeInsets.only(bottom: 16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 entry.key,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'ScheherazadeNew',
-                                  color: Colors.white,
+                                  color: colorScheme.onPrimaryContainer,
                                   fontSize: 28,
                                   height: 1.8,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              const SizedBox(height: 4),
+                              const SizedBox(height: 6),
                               Text(
                                 entry.value,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Poppins',
-                                  color: Colors.white70,
-                                  fontSize: 16,
+                                  color: colorScheme.onPrimaryContainer
+                                      .withValues(alpha: 0.7),
+                                  fontSize: 14,
+                                  height: 1.5,
+                                  letterSpacing: 0.2,
                                 ),
                               ),
                             ],

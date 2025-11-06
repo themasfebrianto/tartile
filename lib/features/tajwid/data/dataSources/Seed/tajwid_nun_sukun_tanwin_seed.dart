@@ -1,8 +1,10 @@
 import 'package:tartile/features/tajwid/data/models/tajiwd_rule_dto.dart';
+import 'package:uuid/uuid.dart';
 
+final _uuid = const Uuid();
 final tajwidNunSukunTanwinSeed = [
   TajwidRuleDto(
-    id: 'r1',
+    id: _uuid.v4(),
     categoryId: 'c1',
     title: 'Idhar Halqi',
     explanation:
@@ -18,7 +20,7 @@ final tajwidNunSukunTanwinSeed = [
     },
   ),
   TajwidRuleDto(
-    id: 'r2',
+    id: _uuid.v4(),
     categoryId: 'c1',
     title: 'Idghom Bighunnah',
     explanation:
@@ -34,7 +36,7 @@ final tajwidNunSukunTanwinSeed = [
     },
   ),
   TajwidRuleDto(
-    id: 'r3',
+    id: _uuid.v4(),
     categoryId: 'c1',
     title: 'Idghom Bila Ghunnah',
     explanation:
@@ -50,7 +52,7 @@ final tajwidNunSukunTanwinSeed = [
     },
   ),
   TajwidRuleDto(
-    id: 'r4',
+    id: _uuid.v4(),
     categoryId: 'c1',
     title: 'Iqlab',
     explanation:
@@ -66,7 +68,7 @@ final tajwidNunSukunTanwinSeed = [
     },
   ),
   TajwidRuleDto(
-    id: 'r5',
+    id: _uuid.v4(),
     categoryId: 'c1',
     title: 'Ikhfa',
     explanation:

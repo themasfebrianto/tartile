@@ -2,7 +2,12 @@ import 'dart:convert';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_categories_seed.dart';
+import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_idghom_type_seed.dart';
+import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_lam_taarif_seed.dart';
+import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_mim_nun_tasydid_seed.dart';
+import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_mim_sukun_seed.dart';
 import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_nun_sukun_tanwin_seed.dart';
+import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_tafkhim_tarkik_seed.dart';
 
 class TajwidDbHelper {
   static final TajwidDbHelper _instance = TajwidDbHelper._internal();
@@ -21,7 +26,7 @@ class TajwidDbHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'tajwid.db');
 
-    // await deleteDatabase(path);
+    await deleteDatabase(path);
 
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
@@ -56,6 +61,26 @@ class TajwidDbHelper {
     }
 
     for (var rule in tajwidNunSukunTanwinSeed) {
+      await db.insert('rules', rule.toMap());
+    }
+
+    for (var rule in tajwidIdghamTypesSeed) {
+      await db.insert('rules', rule.toMap());
+    }
+
+    for (var rule in tajwidLamTaarifSeed) {
+      await db.insert('rules', rule.toMap());
+    }
+
+    for (var rule in tajwidMimNunTasydidSeed) {
+      await db.insert('rules', rule.toMap());
+    }
+
+    for (var rule in tajwidMimSukunSeed) {
+      await db.insert('rules', rule.toMap());
+    }
+
+    for (var rule in tajwidTafkhimTarqiqSeed) {
       await db.insert('rules', rule.toMap());
     }
   }
