@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tartile/features/tajwid/presentation/widgets/rule_card.dart';
 import '../../domain/repositories/tajwid_rules_repository.dart';
 import '../../domain/entities/tajwid_rule_entity.dart';
-import '../widgets/rule_card.dart';
-import 'rule_detail_screen.dart';
 
 class RuleListScreen extends StatefulWidget {
   final String categoryId;
@@ -22,6 +21,7 @@ class RuleListScreen extends StatefulWidget {
 
 class _RuleListScreenState extends State<RuleListScreen> {
   late Future<List<TajwidRuleEntity>> _rulesFuture;
+  int? _expandedIndex; 
 
   @override
   void initState() {
@@ -50,78 +50,37 @@ class _RuleListScreenState extends State<RuleListScreen> {
           if (rules.isEmpty) {
             return const Center(child: Text('Belum ada hukum tajwid.'));
           }
-
-          return Padding(
+          return ListView.builder(
             padding: const EdgeInsets.all(12.0),
-            child: GridView.builder(
-              itemCount: rules.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // dua kolom
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 1.1, // proporsi kartu
-              ),
-              itemBuilder: (context, index) {
-                final rule = rules[index];
-                final colors = [
-                  Colors.teal,
-                  Colors.indigo,
-                  Colors.orange,
-                  Colors.purple,
-                  Colors.green,
-                  Colors.deepOrange,
-                ];
-                final color = colors[index % colors.length];
+            itemCount: rules.length,
+            itemBuilder: (context, index) {
+              final rule = rules[index];
+              final colors = [
+                Colors.teal,
+                Colors.indigo,
+                Colors.orange,
+                Colors.purple,
+                Colors.green,
+                Colors.deepOrange,
+              ];
+              final color = colors[index % colors.length];
 
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => RuleDetailScreen(rule: rule),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    color: color.withOpacity(0.85),
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.menu_book, color: Colors.white, size: 36),
-                          const SizedBox(height: 8),
-                          Text(
-                            rule.title,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          if (rule.symbol != null) ...[
-                            const SizedBox(height: 6),
-                            Text(
-                              rule.symbol!,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+              return TajwidRuleCard(
+                key: ValueKey(index),
+                rule: rule,
+                color: color,
+                isExpanded: _expandedIndex == index,
+                onExpansionChanged: (expanded) {
+                  setState(() {
+                    if (expanded) {
+                      _expandedIndex = index;
+                    } else if (_expandedIndex == index) {
+                      _expandedIndex = null;
+                    }
+                  });
+                },
+              );
+            },
           );
         },
       ),

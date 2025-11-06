@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tartile/features/tajwid/presentation/widgets/category_grid.dart';
+import 'package:tartile/features/tajwid/presentation/widgets/search_bar.dart';
 import '../../domain/entities/tajwid_category_entity.dart';
 import '../../domain/repositories/tajwid_category_repository.dart';
 import '../../domain/repositories/tajwid_rules_repository.dart';
-import 'rule_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final TajwidRulesRepository rulesRepository;
@@ -98,93 +99,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
-                  // 🔍 Search Bar
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-                    child: TextField(
-                      onChanged: _onSearchChanged,
-                      decoration: InputDecoration(
-                        hintText: 'Cari kategori tajwid...',
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[100],
-                      ),
-                    ),
-                  ),
+                  SearchBarWidget(onChanged: _onSearchChanged),
                   Expanded(
-                    child: _filteredCategories.isEmpty
-                        ? const Center(child: Text('Tidak ada hasil.'))
-                        : Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: GridView.builder(
-                              itemCount: _filteredCategories.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 12,
-                                    mainAxisSpacing: 12,
-                                    childAspectRatio: 1.1,
-                                  ),
-                              itemBuilder: (context, index) {
-                                final cat = _filteredCategories[index];
-                                final color = colors[index % colors.length];
-
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => RuleListScreen(
-                                          categoryId: cat.id,
-                                          categoryName: cat.title,
-                                          repository: widget.rulesRepository,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Card(
-                                    color: color.withValues(alpha: 0.75),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    elevation: 4,
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.menu_book_rounded,
-                                              color: Colors.white,
-                                              size: 42,
-                                            ),
-                                            const SizedBox(height: 12),
-                                            Text(
-                                              cat.title,
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                    child: CategoryGridWidget(
+                      categories: _filteredCategories,
+                      rulesRepository: widget.rulesRepository,
+                      colors: colors,
+                    ),
                   ),
                 ],
               ),

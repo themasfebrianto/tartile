@@ -5,9 +5,9 @@ class TajwidRuleModel extends TajwidRuleEntity {
     required super.id,
     required super.categoryId,
     required super.title,
-    required super.symbol,
-    required super.detailMd,
-    super.audioUrl,
+    required super.explanation,
+    required super.letters,
+    required super.examples,
   });
 
   factory TajwidRuleModel.fromMap(Map<String, dynamic> map) {
@@ -15,9 +15,9 @@ class TajwidRuleModel extends TajwidRuleEntity {
       id: map['id'],
       categoryId: map['categoryId'],
       title: map['title'],
-      symbol: map['symbol'],
-      detailMd: map['detailMd'],
-      audioUrl: map['audioUrl'],
+      explanation: map['explanation'] ?? '',
+      letters: map['letters'] ?? '',
+      examples: map['examples'] ?? '',
     );
   }
 
@@ -25,19 +25,19 @@ class TajwidRuleModel extends TajwidRuleEntity {
     'id': id,
     'categoryId': categoryId,
     'title': title,
-    'symbol': symbol,
-    'detailMd': detailMd,
-    'audioUrl': audioUrl,
+    'explanation': explanation,
+    'letters': letters,
+    'examples': examples,
   };
 
   TajwidRuleEntity toEntity() {
     return TajwidRuleEntity(
       id: id,
-      title: title,
-      symbol: symbol,
-      detailMd: detailMd,
-      audioUrl: audioUrl,
       categoryId: categoryId,
+      title: title,
+      explanation: explanation,
+      letters: letters,
+      examples: examples,
     );
   }
 }
