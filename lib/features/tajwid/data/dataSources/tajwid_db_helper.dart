@@ -21,7 +21,7 @@ class TajwidDbHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'tajwid.db');
 
-    await deleteDatabase(path);
+    // await deleteDatabase(path);
 
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }

@@ -13,7 +13,7 @@ final tajwidNunSukunTanwinSeed = [
     examples: {
       'مِنْ كِتَابٍ': 'min kitāb',
       'مِنْ سَبِيلٍ': 'min sabīl',
-      'مِنْ عِلْمٍ': 'min ʿilm',
+      'مِنْ عِلْمٍ': 'min ilm',
       'مِنْ هُدًى': 'min hudā',
     },
   ),

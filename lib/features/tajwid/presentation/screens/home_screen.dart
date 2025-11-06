@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tartile/features/tajwid/presentation/widgets/app_drawer.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/category_grid.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/search_bar.dart';
 import '../../domain/entities/tajwid_category_entity.dart';
@@ -35,12 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadCategories() async {
     setState(() => _isLoading = true);
-
     try {
       debugPrint('🔹 Memulai load kategori...');
       final categories = await widget.categoryRepository.getAllCategories();
       debugPrint('✅ Selesai load kategori: ${categories.length} item');
-
       setState(() {
         _allCategories = categories;
         _filteredCategories = categories;
@@ -92,6 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Tartile Tajwid'),
         backgroundColor: Colors.teal,
+      ),
+      drawer: AppDrawer(
+        categoryRepository: widget.categoryRepository,
+        rulesRepository: widget.rulesRepository,
       ),
       body: RefreshIndicator(
         onRefresh: _loadCategories,
