@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_categories_seed.dart';
@@ -19,7 +20,9 @@ class TajwidDbHelper {
   Future<Database> _initDb() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'tajwid.db');
-    await deleteDatabase(join(await getDatabasesPath(), 'tajwid.db'));
+
+    await deleteDatabase(path);
+
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
@@ -48,7 +51,6 @@ class TajwidDbHelper {
     ''');
 
     // === SEED DATA ===
-
     for (var category in tajwidCategoriesSeed) {
       await db.insert('categories', category.toMap());
     }
@@ -56,5 +58,11 @@ class TajwidDbHelper {
     for (var rule in tajwidNunSukunTanwinSeed) {
       await db.insert('rules', rule.toMap());
     }
+  }
+
+  static Map<String, String> parseExamples(String? jsonStr) {
+    if (jsonStr == null || jsonStr.isEmpty) return {};
+    final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
+    return decoded.map((key, value) => MapEntry(key, value.toString()));
   }
 }

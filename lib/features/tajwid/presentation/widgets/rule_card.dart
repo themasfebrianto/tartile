@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import '../../domain/entities/tajwid_rule_entity.dart';
@@ -18,12 +19,19 @@ class TajwidRuleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Decode examples JSON string ke Map
+    Map<String, String> examplesMap = {};
+    if (rule.examples.isNotEmpty) {
+      final decoded = jsonDecode(rule.examples) as Map<String, dynamic>;
+      examplesMap = decoded.map((k, v) => MapEntry(k, v.toString()));
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.7), color..withValues(alpha: 0.7)],
+          colors: [color.withValues(alpha: 0.7), color.withValues(alpha: 0.7)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -46,7 +54,7 @@ class TajwidRuleCard extends StatelessWidget {
             ),
             subtitle: Text(
               rule.letters,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'NotoSansArabic',
                 color: Colors.white70,
                 fontSize: 16,
@@ -54,14 +62,13 @@ class TajwidRuleCard extends StatelessWidget {
             ),
             title: Text(
               rule.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Poppins',
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),
-
             childrenPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 16,
@@ -69,12 +76,11 @@ class TajwidRuleCard extends StatelessWidget {
             initiallyExpanded: isExpanded,
             onExpansionChanged: onExpansionChanged,
             children: [
-              // Penjelasan hukum dengan Markdown
               MarkdownBody(
                 data: rule.explanation,
                 styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
                     .copyWith(
-                      p: TextStyle(
+                      p: const TextStyle(
                         fontFamily: 'Poppins',
                         color: Colors.white70,
                         fontSize: 16,
@@ -83,7 +89,6 @@ class TajwidRuleCard extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: 16),
-              // Contoh bacaan sebagai nested card
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -94,7 +99,7 @@ class TajwidRuleCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Contoh:',
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -106,21 +111,28 @@ class TajwidRuleCard extends StatelessWidget {
                     const SizedBox(height: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: rule.examples.split('\n').map((ayat) {
+                      children: examplesMap.entries.map((entry) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Row(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  ayat,
-                                  style: TextStyle(
-                                    fontFamily: 'ScheherazadeNew',
-                                    color: Colors.white,
-                                    fontSize: 28,
-                                    height: 1.8,
-                                  ),
+                              Text(
+                                entry.key,
+                                style: const TextStyle(
+                                  fontFamily: 'ScheherazadeNew',
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  height: 1.8,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                entry.value,
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white70,
+                                  fontSize: 16,
                                 ),
                               ),
                             ],

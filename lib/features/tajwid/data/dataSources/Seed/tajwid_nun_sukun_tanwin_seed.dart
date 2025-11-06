@@ -1,7 +1,7 @@
-import 'package:tartile/features/tajwid/data/models/tajwid_rule.dart';
+import 'package:tartile/features/tajwid/data/models/tajiwd_rule_dto.dart';
 
 final tajwidNunSukunTanwinSeed = [
-  TajwidRuleModel(
+  TajwidRuleDto(
     id: 'r1',
     categoryId: 'c1',
     title: 'Idhar Halqi',
@@ -10,14 +10,14 @@ final tajwidNunSukunTanwinSeed = [
         '- Terjadi ketika nun sukun atau tanwin bertemu huruf halqi: **ء, ه, ع, ح, خ, غ**.\n'
         '- Cara baca: suara nun/tanwin terdengar jelas tanpa dengungan.\n',
     letters: 'ء, ه, ع, ح, خ, غ',
-    examples:
-        '- أَنْهَ\n'
-        '- أَنْهَا\n'
-        '- أَنْهُم\n'
-        '- أَنْتَ\n'
-        '- أَنْتِ',
+    examples: {
+      'مِنْ كِتَابٍ': 'min kitāb',
+      'مِنْ سَبِيلٍ': 'min sabīl',
+      'مِنْ عِلْمٍ': 'min ʿilm',
+      'مِنْ هُدًى': 'min hudā',
+    },
   ),
-  TajwidRuleModel(
+  TajwidRuleDto(
     id: 'r2',
     categoryId: 'c1',
     title: 'Idghom Bighunnah',
@@ -26,14 +26,14 @@ final tajwidNunSukunTanwinSeed = [
         '- Terjadi saat nun sukun atau tanwin bertemu huruf: **ي, ن, م, و**.\n'
         '- Cara baca: nun/tanwin dihubungkan ke huruf berikutnya dengan dengungan ringan.\n',
     letters: 'ي, ن, م, و',
-    examples:
-        '- مِنْ وَجْهِ\n'
-        '- مِنْ نَفْسٍ\n'
-        '- مِنْ مَكَانٍ\n'
-        '- مِنْ وَرَقٍ\n'
-        '- مِنْ يَدٍ',
+    examples: {
+      'مِنْ يَدٍ': 'miy yad',
+      'مِنْ نَفْسٍ': 'min nafs',
+      'مِنْ مَكَانٍ': 'mim makān',
+      'مِنْ وَرَقٍ': 'muw waraq',
+    },
   ),
-  TajwidRuleModel(
+  TajwidRuleDto(
     id: 'r3',
     categoryId: 'c1',
     title: 'Idghom Bila Ghunnah',
@@ -42,14 +42,14 @@ final tajwidNunSukunTanwinSeed = [
         '- Terjadi saat nun sukun atau tanwin bertemu huruf: **ل, ر**.\n'
         '- Cara baca: suara nun/tanwin langsung menyatu ke huruf berikutnya tanpa dengungan.\n',
     letters: 'ل, ر',
-    examples:
-        '- مِنْ لَدُنْ\n'
-        '- مِنْ لَيْلٍ\n'
-        '- مِنْ رَبٍّ\n'
-        '- مِنْ رَجُلٍ\n'
-        '- مِنْ رَسُولٍ',
+    examples: {
+      'مِنْ لَدُنْ': 'mil ladun',
+      'مِنْ لَيْلٍ': 'mil laylin',
+      'مِنْ رَبٍّ': 'mir rabb',
+      'مِنْ رَجُلٍ': 'mir rajul',
+    },
   ),
-  TajwidRuleModel(
+  TajwidRuleDto(
     id: 'r4',
     categoryId: 'c1',
     title: 'Iqlab',
@@ -58,14 +58,14 @@ final tajwidNunSukunTanwinSeed = [
         '- Terjadi saat nun sukun atau tanwin bertemu huruf **ب**.\n'
         '- Cara baca: nun/tanwin berubah menjadi mim dengan merapatkan bibir disertai dengungan.\n',
     letters: 'ب',
-    examples:
-        '- أَنْبِئْ\n'
-        '- أَنْبَتْ\n'
-        '- أَنْبَهْ\n'
-        '- أَنْبَرْ\n'
-        '- أَنْبَغْ',
+    examples: {
+      'أَنْبِئْ': 'ambī',
+      'أَنْبَتْ': 'ambat',
+      'أَنْبَهْ': 'ambah',
+      'أَنْبَرْ': 'ambar',
+    },
   ),
-  TajwidRuleModel(
+  TajwidRuleDto(
     id: 'r5',
     categoryId: 'c1',
     title: 'Ikhfa',
@@ -75,11 +75,11 @@ final tajwidNunSukunTanwinSeed = [
         '- Huruf: **ت, ث, ج, د, ذ, ز, س, ش, ص, ض, ط, ظ, ف, ق, ك**.\n'
         '- Cara baca: suara nun/tanwin samar, terdengar seperti *NG* atau *NY* tergantung huruf.\n',
     letters: 'ت, ث, ج, د, ذ, ز, س, ش, ص, ض, ط, ظ, ف, ق, ك',
-    examples:
-        '- مِنْ شَرٍّ\n'
-        '- مِنْ تَمْرٍ\n'
-        '- مِنْ ثَمَرٍ\n'
-        '- مِنْ جَمَلٍ\n'
-        '- مِنْ دَارٍ',
+    examples: {
+      'مِنْ شَرٍّ': 'ming sharr',
+      'مِنْ تَمْرٍ': 'ming tamr',
+      'مِنْ ثَمَرٍ': 'ming thamar',
+      'مِنْ جَمَلٍ': 'ming jamal',
+    },
   ),
 ];
