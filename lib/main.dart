@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tartile/features/Dashboard/dashboard_feature.dart';
 import 'core/theme/app_theme.dart';
-import 'features/tajwid/tajwid_feature.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tartile - Belajar Tajwid',
+      title: 'Tartil.in - Belajar Tajwid',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light, // from core/theme/app_theme.dart
-      home: const TajwidFeature(),
+      theme: AppTheme.lightTheme,
+      // darkTheme: AppTheme.darkTheme,
+      themeMode: AppTheme.defaultThemeMode,
+      home: DashboardFeature(),
     );
   }
 }

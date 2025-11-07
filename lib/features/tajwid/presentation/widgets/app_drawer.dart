@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tartile/features/tajwid/domain/repositories/tajwid_category_repository.dart';
 import 'package:tartile/features/tajwid/domain/repositories/tajwid_rules_repository.dart';
-import 'package:tartile/features/tajwid/presentation/screens/dashboard_screen.dart';
+import 'package:tartile/features/Dashboard/presentation/screens/dashboard_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final TajwidRulesRepository rulesRepository;

@@ -26,7 +26,7 @@ class TajwidDbHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'tajwid.db');
 
-    await deleteDatabase(path);
+    // await deleteDatabase(path); // uncomment kalau mau reset data
 
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
@@ -55,39 +55,28 @@ class TajwidDbHelper {
       );
     ''');
 
-    // === SEED DATA ===
+    // === SEED DATA (FAST BATCH INSERT) ===
+    final batch = db.batch();
+
+    // Categories
     for (var category in tajwidCategoriesSeed) {
-      await db.insert('categories', category.toMap());
+      batch.insert('categories', category.toMap());
     }
 
-    for (var rule in tajwidNunSukunTanwinSeed) {
-      await db.insert('rules', rule.toMap());
+    // Rules
+    final allRules = [
+      ...tajwidNunSukunTanwinSeed,
+      ...tajwidIdghamTypesSeed,
+      ...tajwidLamTaarifSeed,
+      ...tajwidMimNunTasydidSeed,
+      ...tajwidMimSukunSeed,
+      ...tajwidTafkhimTarqiqSeed,
+    ];
+
+    for (var rule in allRules) {
+      batch.insert('rules', rule.toMap());
     }
 
-    for (var rule in tajwidIdghamTypesSeed) {
-      await db.insert('rules', rule.toMap());
-    }
-
-    for (var rule in tajwidLamTaarifSeed) {
-      await db.insert('rules', rule.toMap());
-    }
-
-    for (var rule in tajwidMimNunTasydidSeed) {
-      await db.insert('rules', rule.toMap());
-    }
-
-    for (var rule in tajwidMimSukunSeed) {
-      await db.insert('rules', rule.toMap());
-    }
-
-    for (var rule in tajwidTafkhimTarqiqSeed) {
-      await db.insert('rules', rule.toMap());
-    }
-  }
-
-  static Map<String, String> parseExamples(String? jsonStr) {
-    if (jsonStr == null || jsonStr.isEmpty) return {};
-    final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
-    return decoded.map((key, value) => MapEntry(key, value.toString()));
+    await batch.commit(noResult: true);
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tartile/core/constants/app_colors.dart';
+import 'package:tartile/core/theme/app_theme.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/app_drawer.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/category_grid.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/search_bar.dart';
@@ -7,21 +9,21 @@ import '../../domain/entities/tajwid_category_entity.dart';
 import '../../domain/repositories/tajwid_category_repository.dart';
 import '../../domain/repositories/tajwid_rules_repository.dart';
 
-class HomeScreen extends StatefulWidget {
+class CategoryScreen extends StatefulWidget {
   final TajwidRulesRepository rulesRepository;
   final TajwidCategoryRepository categoryRepository;
 
-  const HomeScreen({
+  const CategoryScreen({
     super.key,
     required this.rulesRepository,
     required this.categoryRepository,
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CategoryScreenState extends State<CategoryScreen> {
   List<TajwidCategoryEntity> _allCategories = [];
   List<TajwidCategoryEntity> _filteredCategories = [];
   bool _isLoading = true;
@@ -37,9 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadCategories() async {
     setState(() => _isLoading = true);
     try {
-      debugPrint('🔹 Memulai load kategori...');
+      debugPrint('🔹 Memulai Seed Database...');
       final categories = await widget.categoryRepository.getAllCategories();
-      debugPrint('✅ Selesai load kategori: ${categories.length} item');
+      debugPrint('✅ Selesai Seed Database...');
       setState(() {
         _allCategories = categories;
         _filteredCategories = categories;
@@ -80,24 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    final colors = [
-      const Color(0xFFBBDEFB), // Light Blue 100
-      const Color(0xFFC8E6C9), // Green 100
-      const Color(0xFFFFF9C4), // Yellow 100
-      const Color(0xFFFFCCBC), // Deep Orange 100
-      const Color(0xFFD1C4E9), // Deep Purple 100
-      const Color(0xFFFFF3E0), // Orange 50
-      const Color(0xFFE1BEE7), // Purple 100
-      const Color(0xFFDCEDC8), // Lime 100
-    ];
-
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        elevation: 0,
-        scrolledUnderElevation: 0,
         backgroundColor: colorScheme.surface,
-        surfaceTintColor: Colors.transparent,
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu_rounded),
@@ -107,11 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Text(
           'Tartile Tajwid',
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
-          ),
+          style: AppTextStyles.appBarTitle(colorScheme.onSurface),
         ),
       ),
       drawer: AppDrawer(
@@ -128,14 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
             : Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
                     child: SearchBarWidget(onChanged: _onSearchChanged),
                   ),
                   Expanded(
                     child: CategoryGridWidget(
                       categories: _filteredCategories,
                       rulesRepository: widget.rulesRepository,
-                      colors: colors,
+                      colors: cardColors,
                     ),
                   ),
                 ],
