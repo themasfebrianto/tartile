@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tartile/core/constants/app_colors.dart';
 import 'package:tartile/core/theme/app_theme.dart';
-import 'package:tartile/features/tajwid/presentation/widgets/app_drawer.dart';
+import 'package:tartile/features/dashboard/presentation/widgets/app_drawer.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/category_grid.dart';
 import 'package:tartile/features/tajwid/presentation/widgets/search_bar.dart';
 import '../../domain/entities/tajwid_category_entity.dart';
@@ -94,7 +94,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ),
         title: Text(
-          'Tartile Tajwid',
+          'Kategori Tajwid',
           style: AppTextStyles.appBarTitle(colorScheme.onSurface),
         ),
       ),

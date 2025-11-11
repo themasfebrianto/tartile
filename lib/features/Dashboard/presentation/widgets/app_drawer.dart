@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tartile/features/auth/presentation/screens/login_screen.dart';
+import 'package:tartile/features/dashboard/presentation/widgets/about_app_widget.dart';
 import 'package:tartile/features/tajwid/domain/repositories/tajwid_category_repository.dart';
 import 'package:tartile/features/tajwid/domain/repositories/tajwid_rules_repository.dart';
 import 'package:tartile/features/Dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:tartile/features/tajwid/presentation/screens/category_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final TajwidRulesRepository rulesRepository;
@@ -16,6 +20,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
     return Drawer(
       backgroundColor: colorScheme.surface,
       child: Column(
@@ -33,7 +38,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 12),
                 Text(
-                  'Tartile',
+                  'Tartil.in',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -64,25 +69,45 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
+          // === Belajar Tajwid ===
           ListTile(
             leading: const Icon(Icons.book),
             title: const Text('Belajar Tajwid'),
-            onTap: () => Navigator.pop(context),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CategoryScreen(
+                    rulesRepository: rulesRepository,
+                    categoryRepository: categoryRepository,
+                  ),
+                ),
+              );
+            },
           ),
+          // === Tentang Aplikasi ===
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('Tentang Aplikasi'),
             onTap: () {
               Navigator.pop(context);
-              showAboutDialog(
+              showDialog(
                 context: context,
-                applicationName: 'Tartile',
-                applicationVersion: '1.0.0',
-                children: const [
-                  Text(
-                    'Aplikasi pembelajaran tajwid interaktif untuk membantu memahami cara membaca Al-Qur’an dengan benar.',
-                  ),
-                ],
+                builder: (context) => const AboutAppDialog(),
+              );
+            },
+          ),
+          // === Logout ===
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () async {
+              Navigator.pop(context); // tutup drawer
+              await FirebaseAuth.instance.signOut(); // logout
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
             },
           ),

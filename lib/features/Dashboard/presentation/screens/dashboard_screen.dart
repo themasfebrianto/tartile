@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tartile/core/theme/app_theme.dart';
 import 'package:tartile/features/Dashboard/presentation/widgets/category_widget.dart';
 import 'package:tartile/features/Dashboard/presentation/widgets/progress_widget.dart';
+import 'package:tartile/features/dashboard/presentation/widgets/app_drawer.dart';
 import 'package:tartile/features/tajwid/presentation/screens/category_screen.dart';
-import 'package:tartile/features/tajwid/presentation/widgets/app_drawer.dart';
 import '../../../tajwid/domain/repositories/tajwid_rules_repository.dart';
 import '../../../tajwid/domain/repositories/tajwid_category_repository.dart';
 

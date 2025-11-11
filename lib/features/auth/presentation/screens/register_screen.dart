@@ -2,41 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:tartile/features/auth/data/repositories/auth_user_repository_impl.dart';
 import 'package:tartile/features/auth/domain/repository/auth_user_repository.dart';
 import 'package:tartile/features/Dashboard/dashboard_feature.dart';
-import 'package:tartile/features/auth/presentation/screens/register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final AuthUserRepository _authRepo = AuthUserRepositoryImpl();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _isLoading = false;
 
-  Future<void> _handleLogin() async {
+  Future<void> _handleRegister() async {
+    if (_passwordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password dan konfirmasi password tidak sama'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     setState(() => _isLoading = true);
 
     try {
-      final user = await _authRepo.login(
+      final user = await _authRepo.register(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
 
       if (user != null && mounted) {
-        // Jika login berhasil, pindah ke dashboard
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const DashboardFeature()),
-        );
+        Future.microtask(() {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const DashboardFeature()),
+          );
+        });
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Email atau password salah'),
+              content: Text('Register gagal, coba lagi'),
               backgroundColor: Colors.red,
             ),
           );
@@ -92,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 48),
 
               const Text(
-                'Tartil.In',
+                'Daftar Tartil.In',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
@@ -102,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 8),
               Text(
-                'Belajar Tajwid dengan Mudah',
+                'Buat akun untuk mulai belajar Tajwid',
                 style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
               ),
 
@@ -127,27 +139,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
+              const SizedBox(height: 16),
+
+              // Confirm Password Field
+              TextField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Konfirmasi Password',
+                  border: OutlineInputBorder(),
+                ),
+              ),
               const SizedBox(height: 24),
 
-              // Login Button
+              // Register Button
               _isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: _handleLogin,
-                      child: const Text('Login'),
+                      onPressed: _handleRegister,
+                      child: const Text('Daftar'),
                     ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
 
-              // Register Button
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const RegisterScreen()),
-                  );
+                  Navigator.of(context).pop();
                 },
                 child: const Text(
-                  'Belum punya akun? Daftar',
+                  'Sudah punya akun? Login',
                   style: TextStyle(fontSize: 14),
                 ),
               ),
@@ -157,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Dengan melanjutkan, Anda menyetujui Syarat Layanan dan Kebijakan Privasi kami',
+                  'Dengan mendaftar, Anda menyetujui Syarat Layanan dan Kebijakan Privasi kami',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 12,

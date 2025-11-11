@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256285802720",
+    "project_id": "tartilin-534af",
+    "storage_bucket": "tartilin-534af.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256285802720:android:c5b596b03cb46e20769085",
+        "android_client_info": {
+          "package_name": "com.themas.tartilin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzpQUF-crLX6AIyAUqT7GDx3vw2oWBYOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

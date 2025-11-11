@@ -1,4 +1,4 @@
-package com.example.tartile
+package com.themas.tartilin
 
 import io.flutter.embedding.android.FlutterActivity
 

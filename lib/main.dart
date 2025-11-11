@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:tartile/core/auth/auth_wrapper.dart';
 import 'package:tartile/features/Dashboard/dashboard_feature.dart';
 import 'package:tartile/features/auth/auth_feature.dart';
 import 'core/theme/app_theme.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
