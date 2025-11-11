@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tartile/core/constants/app_colors.dart';
 
-// Text styles
 class AppTextStyles {
   static TextStyle appBarTitle(Color onSurfaceColor) {
     return TextStyle(
@@ -16,7 +15,6 @@ class AppTextStyles {
   }
 }
 
-// AppTheme with light and dark
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     colorScheme:
