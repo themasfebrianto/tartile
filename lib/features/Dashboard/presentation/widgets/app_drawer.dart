@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tartile/features/auth/presentation/screens/login_screen.dart';
 import 'package:tartile/features/dashboard/presentation/widgets/about_app_widget.dart';
 import 'package:tartile/features/tajwid/domain/repositories/tajwid_category_repository.dart';
@@ -103,8 +104,9 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
             onTap: () async {
-              Navigator.pop(context); // tutup drawer
-              await FirebaseAuth.instance.signOut(); // logout
+              Navigator.pop(context);
+              await FirebaseAuth.instance.signOut();
+              await GoogleSignIn().signOut();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (_) => const LoginScreen()),

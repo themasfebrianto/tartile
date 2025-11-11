@@ -73,23 +73,22 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
         const SizedBox(height: 16),
-        OutlinedButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => RegisterScreen()),
             );
           },
-          style: OutlinedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 14),
-            side: BorderSide(color: Colors.grey.shade300),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+          child: Center(
+            child: const Text(
+              'Belum punya akun? Daftar',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Colors.green,
+              ),
             ),
-          ),
-          child: const Text(
-            'Belum punya akun? Daftar',
-            style: TextStyle(fontSize: 16),
           ),
         ),
       ],
