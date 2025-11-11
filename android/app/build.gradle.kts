@@ -9,6 +9,15 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("C:/Users/omega/tartil_debug.keystore")
+            storePassword = "android"
+            keyAlias = "tartildebugkey"
+            keyPassword = "android"
+        }
+    }
+
     namespace = "com.themas.tartilin"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion

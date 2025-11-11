@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tartile/features/auth/domain/entitites/auth_user_entitiy.dart';
 
 abstract class AuthUserRepository {
@@ -12,4 +13,6 @@ abstract class AuthUserRepository {
   Future<void> logout();
 
   AuthUser? getCurrentUser();
+
+  Future<User?> loginWithGoogle();
 }

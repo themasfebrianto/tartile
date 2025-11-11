@@ -12,7 +12,20 @@
           "package_name": "com.themas.tartilin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "256285802720-4jq3b3u83kqeo4vmrr0o12dldgftj49v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.themas.tartilin",
+            "certificate_hash": "74491405096917eca7001488832b5d71f1c6e096"
+          }
+        },
+        {
+          "client_id": "256285802720-f7caq3vpj07ubfjcrjlkkf7t693qqfur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBzpQUF-crLX6AIyAUqT7GDx3vw2oWBYOA"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256285802720-f7caq3vpj07ubfjcrjlkkf7t693qqfur.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "256285802720-38tc2scb9o6i9u9mugam3fk25aapls36.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tartile"
+              }
+            }
+          ]
         }
       }
     }
