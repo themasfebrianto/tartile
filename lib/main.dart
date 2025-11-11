@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tartile/core/auth/auth_wrapper.dart';
 import 'package:tartile/features/Dashboard/dashboard_feature.dart';
+import 'package:tartile/features/auth/auth_feature.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
@@ -17,7 +19,10 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       // darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.defaultThemeMode,
-      home: DashboardFeature(),
+      home: AuthWrapper(
+        loginScreen: AuthFeature(),
+        dashboardScreen: DashboardFeature(),
+      ),
     );
   }
 }

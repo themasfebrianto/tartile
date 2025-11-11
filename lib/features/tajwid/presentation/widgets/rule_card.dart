@@ -131,40 +131,48 @@ class TajwidRuleCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: examplesMap.entries.map((entry) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                entry.key,
-                                style: TextStyle(
-                                  fontFamily: 'ScheherazadeNew',
-                                  color: colorScheme.onPrimaryContainer,
-                                  fontSize: 28,
-                                  height: 1.8,
-                                  fontWeight: FontWeight.w500,
+                    Center(
+                      child: Wrap(
+                        spacing: 24, // jarak antar kolom
+                        runSpacing: 20, // jarak antar baris
+                        alignment: WrapAlignment.center,
+                        children: examplesMap.entries.map((entry) {
+                          return SizedBox(
+                            width:
+                                MediaQuery.of(context).size.width /
+                                2.5, // dua kolom kira-kira
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  entry.key,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'ScheherazadeNew',
+                                    color: colorScheme.onPrimaryContainer,
+                                    fontSize: 28,
+                                    height: 1.8,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                entry.value,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color: colorScheme.onPrimaryContainer
-                                      .withValues(alpha: 0.7),
-                                  fontSize: 14,
-                                  height: 1.5,
-                                  letterSpacing: 0.2,
+                                const SizedBox(height: 6),
+                                Text(
+                                  entry.value,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    color: colorScheme.onPrimaryContainer
+                                        .withValues(alpha: 0.7),
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    letterSpacing: 0.2,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ],
                 ),

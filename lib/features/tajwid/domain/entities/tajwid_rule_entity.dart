@@ -1,4 +1,3 @@
-// domain/entities/tajwid_rule_entity.dart
 class TajwidRuleEntity {
   final String id;
   final String categoryId;
