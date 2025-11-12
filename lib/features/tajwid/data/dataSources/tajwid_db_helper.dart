@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tartile/features/tajwid/data/dataSources/Seed/tajwid_categories_seed.dart';
