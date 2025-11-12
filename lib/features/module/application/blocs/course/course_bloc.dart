@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tartile/features/module/application/events/course_event.dart';
-import 'package:tartile/features/module/application/states/course_state.dart';
+import 'package:tartile/features/module/application/blocs/course/course_event.dart';
+import 'package:tartile/features/module/application/blocs/course/course_state.dart';
 import 'package:tartile/features/module/data/dtos/course/course_filter_dto.dart';
 import 'package:tartile/features/module/domain/repositories/course_repository.dart';
 
